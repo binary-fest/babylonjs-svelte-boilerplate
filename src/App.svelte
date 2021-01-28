@@ -5,7 +5,10 @@
 	let el;
 
 	onMount(() => {
-		createScene(el)
+
+		// mode = "build" for build the 3d desain
+		// mode = "play" for play with first person perspective
+		createScene(el, "play") 
 	});
 </script>
 
