@@ -1,8 +1,11 @@
 export default {
-    funiture: {
-        floor : "assets/furniture/gray-floor.jpg",
-        wall : "assets/furniture/brick-black-wall.jpg"
+    images: {
+        floor : "assets/images/gray-floor.jpg",
+        wall : "assets/images/brick-black-wall.jpg",
+        logo: "assets/images/logo2.png",
+        show: "assets/images/show.png",
+        woodenWall: "assets/images/wooden-wall.jpg",
+        whiteWill: "assets/images/white-wall.jpg"
     },
-    logo: "assets/logo/logo2.png",
     music: "assets/music/backsound.wav"
 }

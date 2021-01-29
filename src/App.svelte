@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { createScene } from "./components/3d/scene";
+	import { createScene } from "./3d/scene";
 
 	let el;
 
@@ -13,3 +13,11 @@
 </script>
 
 <canvas bind:this={el}></canvas>
+
+<style>
+	canvas {
+		width: 100vw;
+		height: 100vh;
+		display: block;
+	}
+</style>
