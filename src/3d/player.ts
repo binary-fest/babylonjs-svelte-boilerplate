@@ -6,13 +6,13 @@ import {
     Vector3
 } from 'babylonjs'
 
-import { inputs } from './store'
+import { inputs } from './inputs'
 import keys from '../config/keys'
 
 export const createPlayer = (scene: Scene, viewport: Viewport) => {
 
     const player = Mesh.CreateSphere("playerMesh", 4, 2, scene)
-    player.position.y = 2
+    player.position.y = 4
     player.position.z = -35
 
     const camera = new TargetCamera("playerCamera", new Vector3(0, 0, 0), scene)
@@ -50,8 +50,8 @@ export const createPlayer = (scene: Scene, viewport: Viewport) => {
         if(inputs[keys.facingDown])
             player.rotation.x += 0.01
         
-        if(player.position.y != 2){
-            player.position.y = 2
+        if(player.position.y != 4){
+            player.position.y = 4
         }
 
         if(player.rotation.x > 0.18){

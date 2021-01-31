@@ -44,7 +44,8 @@ export const createStage = (constrain: PosConstrain, player: Mesh, scene: Scene)
     mainWallMat.diffuseTexture = mainWallTex
 
     const faceUV = new Array(6)
-    faceUV[0] = new Vector4(1, 1, 0, 0)
+    faceUV[0] = new Vector4(0, 0, 0, 0)
+    // faceUV[1] = new Vector4(0, 0, 0, 0)
     faceUV[2] = new Vector4(0, 0, 0, 0)
     faceUV[3] = new Vector4(0, 0, 0, 0)
     faceUV[4] = new Vector4(0, 0, 0, 0)
@@ -88,10 +89,10 @@ export const createStage = (constrain: PosConstrain, player: Mesh, scene: Scene)
         z: -0.5 + constrain.z
     }, -45,scene)
 
-    const music = new Sound("music", path.music, scene, null, {
-        loop: true,
-        autoplay: true
-      })
+    // const music = new Sound("music", path.music, scene, null, {
+    //     loop: true,
+    //     autoplay: true
+    //   })
 
     // const footBanner1 = MeshBuilder.CreateBox("footBanner", {}, scene)
     // footBanner1.scaling = new Vector3(1, 0.2, 2.5)
@@ -107,7 +108,7 @@ export const createStage = (constrain: PosConstrain, player: Mesh, scene: Scene)
         scene.registerBeforeRender(() => {
             const distanceFromMusic = ((Math.sqrt(Math.pow(player.position.x - mainImageBox.position.x, 2) + Math.pow(player.position.z - mainImageBox.position.z, 2)))/60)
             // console.log((1 - 0) - distanceFromMusic)
-            music.setVolume((1 - 0) - distanceFromMusic)
+            // music.setVolume((1 - 0) - distanceFromMusic)
         })
     }
 
