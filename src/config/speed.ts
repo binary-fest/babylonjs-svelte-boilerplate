@@ -1,5 +1,5 @@
 export default {
-    moveForward : 0.07,
+    moveForward : 0.1,
     moveBackward : 0.05,
     moveLeft: 0.05,
     moveRight: 0.05,

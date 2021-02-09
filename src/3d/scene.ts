@@ -8,11 +8,10 @@ import {
   ActionManager,
   ExecuteCodeAction,
   ArcRotateCamera,
-  Sound,
   Mesh
 } from 'babylonjs'
 import path from '../config/path'
-import { createGround, createTiledGround } from './ground';
+import { createTiledGround } from './ground';
 import { inputs } from './inputs';
 import { createStage } from './stage';
 import { createPlayer } from './player';
@@ -20,10 +19,7 @@ import { createRoof } from './roof';
 import { createWall } from './walls';
 import { createDecoration } from './decoration';
 import { createStand } from './stand';
-import * as GUI from 'babylonjs-gui'
-import { click } from '../store';
-
-
+import StandData from '../data/StandData';
 
 export const createScene = (canvas: HTMLCanvasElement, mode: string) => {
   const engine = new Engine(canvas, true);
@@ -47,6 +43,11 @@ export const createScene = (canvas: HTMLCanvasElement, mode: string) => {
         new ExecuteCodeAction(ActionManager.OnKeyUpTrigger,
         (e) => inputs[e.sourceEvent.key] = e.sourceEvent.type == "keydown")
       )
+
+      break;
+    
+    case "TPS":
+      break;
     
     default:
       const camera = new ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new Vector3(0, 0, 0), scene)
@@ -66,7 +67,7 @@ export const createScene = (canvas: HTMLCanvasElement, mode: string) => {
   //   position: new Vector3(0, 0, 0)
   // },scene)
 
-  createTiledGround([path.images.floor, path.images.whiteWill],{
+  createTiledGround([path.images.floor, path.images.floor],{
     h: 10,
     w: 10
   }, scene)
@@ -87,33 +88,56 @@ export const createScene = (canvas: HTMLCanvasElement, mode: string) => {
     z: 40
   }, player,scene)
 
-  createStand({ x: -30, y: 0, z: 30}, {
-    name: "BINARY",
-    logo_url: path.images.logo,
-    v_image_url: path.images.logo,
-    h_image_url: path.images.logo
-  },scene)
+  const location = [
+    {
+      x: -40,
+      y: 0,
+      z: 0
+    },
+    {
+      x: -40,
+      y: 0,
+      z: 25
+    },
+    {
+      x: -40,
+      y: 0,
+      z: -25
+    }
+  ]
 
-  // createStand({
-  //   x: -35,
-  //   y: 0,
-  //   z: 0
-  // }, scene)
 
-  var plane = Mesh.CreatePlane("plane", 2, scene);
-  plane.position.y = 2;
-
-  const advanced = GUI.AdvancedDynamicTexture.CreateForMesh(plane)
-  const button = GUI.Button.CreateSimpleButton("button", "click me")
-  button.width = 1
-  button.height = 0.4
-  button.color = "white"
-  button.fontSize = 50
-  button.background = "green"
-  button.onPointerClickObservable.add(() => {
-    click.set(true)
+  StandData.forEach((value, index) => {
+    createStand(location[index], value, scene)
   })
-  advanced.addControl(button)
+
+  // createStand({ x: -40, y: 0, z: 0}, {
+  //   id: 0,
+  //   name: "Google",
+  //   logo_url: path.images.logo,
+  //   v_image_url: path.images.logo,
+  //   h_image_url: path.images.logo,
+  //   description: "Stand satu"
+  // },scene)
+
+  // createStand({ x: -40, y: 0, z: 25}, {
+  //   id: 1,
+  //   name: "BINARY",
+  //   logo_url: path.images.logo,
+  //   v_image_url: path.images.logo,
+  //   h_image_url: path.images.logo,
+  //   description: "Stand dua"
+  // },scene)
+
+  // createStand({ x: -40, y: 0, z: -25}, {
+  //   id: 0,
+  //   name: "Gojek",
+  //   logo_url: path.images.logo,
+  //   v_image_url: path.images.logo,
+  //   h_image_url: path.images.logo,
+  //   description: "Stand 3"
+  // },scene)
+
 
   engine.runRenderLoop(() => {
     scene.render();

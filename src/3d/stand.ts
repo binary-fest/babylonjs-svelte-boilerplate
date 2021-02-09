@@ -1,12 +1,12 @@
-import { Color3, Color4, DynamicTexture, HighlightLayer, Mesh, MeshBuilder, PointLight, Scene, StandardMaterial, Texture, Vector3, Vector4 } from "babylonjs"
+import { Color3, Color4, DynamicTexture, HighlightLayer, Mesh, MeshBuilder, PointLight, Scene, StandardMaterial, Texture, Tools, Vector3, Vector4 } from "babylonjs"
 import path from "../config/path"
 import type { PosConstrain } from "../model/Constraint"
-import type { StandData } from "../model/StandData"
+import type { StandModel } from "../model/StandModel"
 import { createLight } from "./light"
+import * as GUI from 'babylonjs-gui'
+import { click, StandDesc } from '../store';
 
-
-
-export const createStand = (pos: PosConstrain, data: StandData,scene: Scene) => {
+export const createStand = (pos: PosConstrain, data: StandModel,scene: Scene) => {
 
     createLight({
         x: pos.x - 1,
@@ -315,5 +315,31 @@ export const createStand = (pos: PosConstrain, data: StandData,scene: Scene) => 
     behindLogo.position.z = pos.z - 1
     behindLogo.rotation.x = 1.575
     behindLogo.material = hImageMat
+
+    var plane = Mesh.CreatePlane("plane", 2, scene);
+  plane.position.y = 3 + pos.y;
+  plane.position.z = -1.8 + pos.z;
+  plane.position.x = 2 + pos.x
+  plane.rotation.y = Tools.ToRadians(-90)
+
+  const advanced = GUI.AdvancedDynamicTexture.CreateForMesh(plane)
+  const button = GUI.Button.CreateSimpleButton("button", "Show More")
+  button.width = 1
+  button.height = 0.4
+  button.hoverCursor = "pointer"
+  button.cornerRadius = 100
+  button.color = "white"
+  button.fontSize = 100
+  button.background = "orange"
+  button.onPointerClickObservable.add(() => {
+    StandDesc.set(data)
+    click.set(true)
+  })
+  advanced.addControl(button)
+
+  scene.registerBeforeRender(() => {
+    plane.rotation.y += 0.02;
+
+  })
 
 }
