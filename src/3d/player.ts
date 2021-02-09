@@ -17,10 +17,6 @@ export const createPlayer = (scene: Scene, viewport: Viewport) => {
     player.position.y = 4
     player.position.z = -35
 
-    player.physicsImpostor = new PhysicsImpostor(player, PhysicsImpostor.HeightmapImpostor, {
-        mass: 0, friction:1, restitution: 0.5
-    }, scene )
-
     const camera = new TargetCamera("playerCamera", new Vector3(0, 0, 0), scene)
     camera.parent = player
     camera.viewport = viewport
